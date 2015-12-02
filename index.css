@@ -1,0 +1,24 @@
+body {
+  padding-top: 50px;
+}
+.starter {
+  padding: 40px 15px;
+  text-align: center;
+}
+.middle {
+  padding: 0px 15px;
+  text-align: center;
+}
+.right {
+    padding-right: 15px;
+    text-align: right;
+}
+td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+td input {
+    vertical-align: middle;
+    text-align: center;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.min.js"></script>
+<script src="https://code.angularjs.org/1.2.28/angular-route.js"></script>
+
+<link href="index.css" rel="stylesheet">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Steel Brick</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container">
+
+<div ng-app="myApp" ng-controller="dataController as DC"> 
+
+    <div class="starter">
+        <!--<h1>Invoice Management System</h1>-->
+        <p class="lead"><b>Please provide your information.</b></p>
+
+        <form class="form-inline">
+      <div class="form-group">
+        <label for="InputName">Name</label>
+        <input type="text" ng-model="user.name" class="form-control"  placeholder="Biao He">
+      </div>&nbsp&nbsp&nbsp
+      <div class="form-group">
+        <label for="InputInvoice">Invoice Number</label>
+        <input type="text" ng-model="user.invoiceNum" class="form-control" placeholder="#105-7761640">
+      </div>&nbsp&nbsp&nbsp
+      <div class="form-group">
+        <label for="exampleInputDate">Date</label>
+        <input type="date" ng-model="user.date" class="form-control">
+      </div>
+      &nbsp&nbsp&nbsp<button type="submit1" ng-click="DC.addUser(user)" class="btn btn-default">Save</button>
+    </form>
+    </div>
+
+    <p class = "middle"><b>Product Search</b></p>
+    <p class="right">Search: <input type="text" ng-model="search.product"></p>
+    
+    <div class="middle">    
+    <table class="table table-striped">
+    <tr>
+        <td style="width:10%">#</td>
+        <td style="width:20%">Product</td>
+        <td style="width:20%">Price</td>
+        <!-- <td style="width:20%">Quantity</td> -->
+        <td style="width:20%">Add</td>
+    </tr>
+    <tr ng-repeat="x in products | orderBy:'price' | filter:search">
+    <td >{{ $index + 1 }}</td>
+    <td><input ng-model="item.product" ng-init="item.product=x.product" class='form-control input-sm' disabled="disabled"></td> 
+    <td><input ng-model="item.price" ng-init="item.price=x.price" class='form-control input-sm' disabled="disabled" placeholder = {{x.price}}></td> 
+    <!-- <td><input ng-model="item.quantity" ng-init="item.quantity=x.quantity" class='form-control input-sm' placeholder = 1></td> -->
+    <td > <button class="btn btn-primary btn-sm" onclick="this.disabled=true;return true;" ng-click="DC.addItem(item)">Add</button></td>
+    </tr>
+    </table>
+
+    </br>
+
+    <p><b>Invoice Details</b></p>
+    <table class="table table-striped" id="details">
+    <tr>
+        <td style="width:10%">#</td>
+        <td style="width:20%">Product</td>
+        <td style="width:20%">Price</td>
+        <td style="width:20%">Quantity</td>
+        <td style="width:20%">Total</td>
+        <td style="width:20%">Remove</td>
+    </tr>
+    <tr id="list">
+    </tr>
+    <tr ng-repeat="item in DC.list">
+        <td>{{$index+1}}</td>
+        <td>{{item.product}}</td>
+        <td><input ng-model="item.price" ng-init="item.price=item.price" class='form-control input-sm' ></td>
+        <td><input ng-model="item.quantity" ng-init="item.quantity=item.quantity" class='form-control input-sm'></td>
+        <td>{{(item.price*item.quantity)|currency}}</td>
+        <td><button type="button" class="btn btn-primary btn-sm" ng-click="DC.removeItem($index)" />Remove</button></td>
+    </tr>
+    </table>
+    <p>Total Price: {{DC.totalPrice()}}</p>
+
+    <button type="button" class="btn btn-primary" ng-click="saveInvoice(user)"onclick="location.href = 'confirmation.html'">Place Invoice</button>
+    </div>
+
+<br>
+<br>
+
+</div> 
+
+</div> 
+<script src="createController.js"></script>
+</body>
+</html>
